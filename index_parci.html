@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario de Registro</title>
+  <link rel="stylesheet" href="">
+</head>
+<body>
+  <h1>Formulario de Registro</h1>
+  <form id="formulario">
+    <label>Apellido: <input type="text" id="apellido" required></label><br>
+    <label>Nombre: <input type="text" id="nombre" required></label><br>
+    <label>DNI: <input type="text" id="DNI" required></label><br>
+    <label>Fecha de Nacimiento: <input type="date" id="fechaNacimiento" required></label><br>
+    <label>Email: <input type="email" id="email" required></label><br>
+    <button type="button" onclick="validarFormulario()">Validar</button>
+    <button type="reset">Limpiar</button>
+  </form>
+
+  <div id="respuestas"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+<!-- COMIENZO DE CSS -->
+<style>
+body{
+    text-align:center;
+  background-color: #ffffff;
+  color: rgb(0, 169, 211);
+  font-family: Arial, sans-serif;
+}
+button {
+  background-color: #00a9d3;
+  color: white;
+  border:none;
+  margin-top: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 10px;
+}
+input{
+    border: 1px solid #393b3b;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-left: 12px;
+}
+</style>
+
+<!--- COMIENZO DE JAVASCRIPT-->
+<script>
+  function validarFormulario() {
+    const apellido = document.getElementById('apellido').value;	
+    const nombre = document.getElementById('nombre').value;
+    const dni = document.getElementById('DNI').value;
+    const fecha = document.getElementById('fechaNacimiento').value;
+    const email = document.getElementById('email').value;
+
+    const solo_Letras = /^[A-Za-zÁÉÍÓÚáéíóúñÑ\s]+$/;
+    const solo_Numeros = /^\d{8}$/;
+    const fecha_Minima = new Date('2006-12-31');
+
+    if (!solo_Letras.test(apellido)) {
+      alert("ingrese un apellido valido");
+      return;
+    }
+
+    if (!solo_Letras.test(nombre)) {
+      alert("ingrese un nombre valido");
+      return;
+    }
+
+    if (!solo_Numeros.test(dni)) {
+      alert("ingrese un dni valido de 8 números");
+      return;
+    }
+
+    if (new Date(fecha) <= fecha_Minima) {
+      alert("ingrese una fecha valida posterior a 2006");
+      return;
+    }
+
+    if (!email.includes('@')) {
+      alert("ingrese un email valido");
+      return;
+    }
+      hacerPreguntas();
+    };
+
+function hacerPreguntas() {
+  const r1 = prompt("¿Cuál es su nacionalidad?");
+  const r2 = prompt("¿Cuál es su color favorito?");
+  const r3 = prompt("¿Cómo se llama su mascota?");
+  document.getElementById("respuestas").innerHTML =
+    `<p>Nacionalidad: ${r1}</p>
+     <p>Color favorito: ${r2}</p>
+     <p>Nombre de mascota: ${r3}</p>`;
+}
+</script>
+
